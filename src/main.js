@@ -3,6 +3,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { stars, toCartesianCoordinates } from "./particlesCoordinates.js";
 import { constellations, cartesianConstellations } from './constellationsCoordinates.js';
 import { constellationsLines } from './constellationsLines.js';
+import particlesVertexShader from './shaders/particles/vertex.glsl';
+import particlesFragmentShader from './shaders/particles/fragment.glsl';
 
 
 console.log(cartesianConstellations(10));
@@ -61,16 +63,18 @@ const axesHelper = new THREE.AxesHelper(1); // 1 is the length of the axes
 scene.add(axesHelper);
 
 
-Object
-const mesh = new THREE.Mesh(
-    new THREE.SphereGeometry(r, 32, 32),
-    new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true})
-);
+// // Object
+// const mesh = new THREE.Mesh(
+//     new THREE.SphereGeometry(r, 32, 32),
+//     new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true})
+// );
 // scene.add(mesh);
+
 
 /**
  * Particles (stars)
  */
+//Geometry
 const particlesGeomtery = new THREE.BufferGeometry();
 const particlesPositions = toCartesianCoordinates(r, stars);
 particlesGeomtery.setAttribute(
@@ -79,9 +83,15 @@ particlesGeomtery.setAttribute(
 );
 // console.log(particlesPositions);
 
-const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.01,
-    sizeAttenuation: true
+//Material
+// const particlesMaterial = new THREE.PointsMaterial({
+//     size: 0.01,
+//     sizeAttenuation: true
+// });
+
+const particlesMaterial = new THREE.RawShaderMaterial({
+    vertexShader: particlesVertexShader,
+    fragmentShader: particlesFragmentShader
 });
 
 const particles = new THREE.Points(particlesGeomtery, particlesMaterial);
