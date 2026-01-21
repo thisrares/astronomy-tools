@@ -15,8 +15,9 @@ body {
 }
 
 #github {
+    position: fixed;
     width: 17.5vw;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     margin: 0.5vw;
     display: flex;
     align-items: center;   /* vertical alignment */
