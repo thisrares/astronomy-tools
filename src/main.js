@@ -84,15 +84,15 @@ particlesGeomtery.setAttribute(
 // console.log(particlesPositions);
 
 //Material
-// const particlesMaterial = new THREE.PointsMaterial({
-//     size: 0.01,
-//     sizeAttenuation: true
-// });
-
-const particlesMaterial = new THREE.RawShaderMaterial({
-    vertexShader: particlesVertexShader,
-    fragmentShader: particlesFragmentShader
+const particlesMaterial = new THREE.PointsMaterial({
+    size: 0.01,
+    sizeAttenuation: true
 });
+
+// const particlesMaterial = new THREE.RawShaderMaterial({
+//     vertexShader: particlesVertexShader,
+//     fragmentShader: particlesFragmentShader
+// });
 
 const particles = new THREE.Points(particlesGeomtery, particlesMaterial);
 scene.add(particles);
