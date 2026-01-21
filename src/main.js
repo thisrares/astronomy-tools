@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { stars, toCartesianCoordinates } from "./particlesCoordinates.js";
+import { stars, toCartesianCoordinates, getMagnitude } from "./particlesCoordinates.js";
 import { constellations, cartesianConstellations } from './constellationsCoordinates.js';
 import { constellationsLines } from './constellationsLines.js';
 import particlesVertexShader from './shaders/particles/vertex.glsl';
@@ -76,6 +76,8 @@ scene.add(axesHelper);
  */
 //Geometry
 const particlesGeomtery = new THREE.BufferGeometry();
+
+//positions
 const particlesPositions = toCartesianCoordinates(r, stars);
 particlesGeomtery.setAttribute(
     'position',
@@ -83,16 +85,19 @@ particlesGeomtery.setAttribute(
 );
 // console.log(particlesPositions);
 
-//Material
-const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.01,
-    sizeAttenuation: true
-});
+//sizes
+const particlesSizes = getMagnitude(stars);
+particlesGeomtery.setAttribute(
+    'aSize',
+    new THREE.BufferAttribute(particlesSizes, 1)
+);
 
-// const particlesMaterial = new THREE.RawShaderMaterial({
-//     vertexShader: particlesVertexShader,
-//     fragmentShader: particlesFragmentShader
-// });
+//Material
+
+const particlesMaterial = new THREE.RawShaderMaterial({
+    vertexShader: particlesVertexShader,
+    fragmentShader: particlesFragmentShader
+});
 
 const particles = new THREE.Points(particlesGeomtery, particlesMaterial);
 scene.add(particles);
@@ -101,7 +106,7 @@ scene.add(particles);
  * Equator
  */
 const lineGeometry = new THREE.BufferGeometry();
-const count = 100;
+const count = 100; //maybe change the name or write a wrapper function
 const linePoints = new Float32Array(count * 3);
 const step = 2 *Math.PI / count;
 for (let i = 0; i < count; i ++) {

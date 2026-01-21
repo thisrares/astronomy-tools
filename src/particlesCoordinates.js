@@ -21,3 +21,12 @@ export const toCartesianCoordinates = (radius = 1, coord = stars) => {
     }
     return cartesian;
 };
+
+export const getMagnitude = (db = stars) => {
+    const starsNumber = db.length;
+    const particlesSizes = new Float32Array(starsNumber);
+    for(let i = 0; i < starsNumber; i++) {
+        particlesSizes[i] = Math.pow(10, -0.2 * db[i].Vmag);
+    }
+    return particlesSizes;
+}
