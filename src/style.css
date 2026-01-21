@@ -13,3 +13,24 @@ html, body {
 body {
     background-color: black;
 }
+
+#github {
+    width: 17.5vw;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0.5vw;
+    display: flex;
+    align-items: center;   /* vertical alignment */
+    gap: 0.5vw;             /* space between image and text */
+}
+
+#git_img {
+    width: 5%;
+}
+
+p {
+    color: rgba(223, 242, 248, 0.85)
+}
+
+a {
+    text-decoration: none;
+}
