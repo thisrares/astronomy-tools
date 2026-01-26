@@ -26,7 +26,8 @@ export const getMagnitude = (db = stars) => {
     const starsNumber = db.length;
     const particlesSizes = new Float32Array(starsNumber);
     for(let i = 0; i < starsNumber; i++) {
-        particlesSizes[i] = Math.pow(10, -0.2 * db[i].Vmag);
+        
+        particlesSizes[i] = db[i].Vmag < 6.0 ? Math.pow(10, -0.2 * db[i].Vmag) : 0.0; //nu merge
     }
     return particlesSizes;
 }
