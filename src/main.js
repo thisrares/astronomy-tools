@@ -5,9 +5,9 @@ import { constellations, cartesianConstellations } from './constellationsCoordin
 import { constellationsLines } from './constellationsLines.js';
 import particlesVertexShader from './shaders/particles/vertex.glsl';
 import particlesFragmentShader from './shaders/particles/fragment.glsl';
+import GUI from 'lil-gui';
 
-
-console.log(cartesianConstellations(10));
+const gui = new GUI();
 
 //Cursor
 const cursor = {
@@ -93,6 +93,10 @@ particlesGeomtery.setAttribute(
 );
 
 //Material
+// const particlesMaterial = new THREE.PointsMaterial({
+//     size: 0.01,
+//     sizeAttenuation: true
+// });
 
 const particlesMaterial = new THREE.RawShaderMaterial({
     vertexShader: particlesVertexShader,
@@ -122,6 +126,7 @@ scene.add(equator);
 /**
  * Constellations Lines
  */
+//need to add toggles to turn on/off the visinility of the lines
 const constellationsArray = constellationsLines(cartesianConstellations(r));
 for (let i = 0; i < constellationsArray.length; i++) {
     scene.add(constellationsArray[i]);
