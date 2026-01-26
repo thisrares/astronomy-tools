@@ -27,7 +27,9 @@ export const getMagnitude = (db = stars) => {
     const particlesSizes = new Float32Array(starsNumber);
     for(let i = 0; i < starsNumber; i++) {
         
-        particlesSizes[i] = db[i].Vmag < 6.0 ? Math.pow(10, -0.2 * db[i].Vmag) : 0.0; //nu merge
+        particlesSizes[i] = db[i].Vmag < 6.0 ? Math.pow(10, -0.2 * db[i].Vmag) : 0.0; 
+        //this method needs to be fixed from the shader because the stars with small size are
+        // still show (probably there is a min size in the shader)
     }
     return particlesSizes;
 }
